@@ -300,12 +300,8 @@
 
   <!-- AI ASSISTANT WIDGET -->
   <button onClick="{{ toggleAssistant }}" aria-label="Ouvrir l'assistant IA" style="position:fixed;top:50%;right:max(16px, env(safe-area-inset-right));transform:translateY(-50%) rotate(-90deg);transform-origin:right center;background:#C04F17;color:#fff;padding:14px 22px;border:none;border-radius:8px 8px 0 0;font-family:Montserrat,sans-serif;font-weight:600;font-size:13px;letter-spacing:0.05em;white-space:nowrap;cursor:pointer;z-index:999998;box-shadow:0 4px 20px rgba(0,0,0,0.3);">Assistant 1WM</button>
-  <div role="dialog" aria-hidden="{{ assistantAriaHidden }}" style="position:fixed;top:0;right:{{ assistantRight }};width:{{ assistantWidth }};height:100vh;background:#fff;z-index:999999;transition:right .35s ease;box-shadow:-8px 0 40px rgba(0,0,0,.25);display:flex;flex-direction:column;">
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#0F172A;color:#fff;font-family:Montserrat,sans-serif;font-weight:600;font-size:14px;">
-      <span>Assistant — Riad Dar Najat</span>
-      <button onClick="{{ closeAssistant }}" aria-label="Fermer" style="background:transparent;border:none;color:#fff;font-size:22px;cursor:pointer;padding:0 8px;">✕</button>
-    </div>
-    <iframe src="https://oneworldmorocco.com/embed/ask/riad-dar-najat?theme=dark&amp;lang=fr&amp;bg=transparent&amp;card=2B2420" title="Assistant IA — Riad Dar Najat" allow="clipboard-write; geolocation" loading="lazy" style="flex:1;width:100%;border:none;"></iframe>
+  <div role="dialog" aria-hidden="{{ assistantAriaHidden }}" style="position:fixed;top:0;right:{{ assistantRight }};width:{{ assistantWidth }};height:100vh;background:#2B2420;color-scheme:dark;z-index:999999;transition:right .35s ease;box-shadow:-8px 0 40px rgba(0,0,0,.25);display:flex;flex-direction:column;">
+    <iframe src="https://oneworldmorocco.com/embed/ask/riad-dar-najat?theme=dark&amp;lang=fr&amp;bg=transparent&amp;card=2B2420&amp;panel=1" title="Assistant IA — Riad Dar Najat" allow="clipboard-write; geolocation" loading="lazy" style="flex:1;width:100%;border:none;background:#2B2420;"></iframe>
   </div>
 
   <!-- FOOTER -->
@@ -570,6 +566,8 @@ class Component extends DCLogic {
     }, 6000);
     this._escHandler = (e) => { if (e.key === 'Escape') this.setState({ assistantOpen: false }); };
     document.addEventListener('keydown', this._escHandler);
+    this._assistantCloseHandler = (e) => { if (e && e.data && e.data.type === 'owm-embed-close') this.setState({ assistantOpen: false }); };
+    window.addEventListener('message', this._assistantCloseHandler);
     const loadScript = (src) => new Promise((resolve) => { const s = document.createElement('scr' + 'ipt'); s.src = src; s.onload = resolve; s.onerror = resolve; document.body.appendChild(s); });
     loadScript('https://reservation.elloha.com/Scripts/widget-loader.min.js?v=42').then(() => {
       this._initBooking();
@@ -594,6 +592,7 @@ class Component extends DCLogic {
     clearInterval(this._heroTimer);
     window.removeEventListener('scroll', this._scrollHandler);
     document.removeEventListener('keydown', this._escHandler);
+    window.removeEventListener('message', this._assistantCloseHandler);
     window.removeEventListener('message', this._reviewsHeightHandler);
     window.removeEventListener('message', this._weatherHeightHandler);
     if (this._resizeObserver) this._resizeObserver.disconnect();
