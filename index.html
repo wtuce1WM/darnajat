@@ -94,7 +94,7 @@
       </div>
     </div>
     <div style="position:relative;z-index:6;width:100%;padding:0 clamp(20px,5vw,64px) 0;margin-top:24px;">
-      <iframe ref="{{ bookingEngineRef }}" style="width:100%;min-height:420px;border:0;" title="Riad Dar Najat — Réservation"></iframe>
+      <div id="ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7" style="width:100%;min-height:420px;" title="Riad Dar Najat" data-id-projet="3e4775b2b25446b48a5accd687d5178d">Chargement en cours...</div>
     </div>
   </section>
 
@@ -519,16 +519,16 @@ class Component extends DCLogic {
     container.insertAdjacentElement('afterend', frag.firstChild);
   }
 
-  _widgetSrcdoc(containerId, code) {
-    const tag = 'scr' + 'ipt';
-    return '<!doctype html><html><head><' + tag + ' src="https://reservation.elloha.com/Scripts/widget-loader.min.js?v=42"></' + tag + '></head><body style="margin:0;font-family:sans-serif;"><div id="' + containerId + '" style="width:100%">Chargement en cours...</div><' + tag + '>' + code + '</' + tag + '></body></html>';
-  }
-
   _initBookingEngine() {
-    if (this._bookingEngineFrame) this._bookingEngineFrame.srcdoc = this._widgetSrcdoc(
-      'ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7',
-      "var constellationWidgetUrl537cd0b76b9543299e6698439e52c2c7, constellationTypeModule537cd0b76b9543299e6698439e52c2c7; constellationWidgetUrl537cd0b76b9543299e6698439e52c2c7 = 'https://reservation.elloha.com/Widget/BookingEngine/537cd0b7-6b95-4329-9e66-98439e52c2c7?idoi=3e4775b2-b254-46b4-8a5a-ccd687d5178d&culture=fr-FR'; constellationTypeModule537cd0b76b9543299e6698439e52c2c7=1; constellationWidgetLoad('ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7'); constellationWidgetAddEvent(window, \"resize\", function () { constellationWidgetSetAppearance('ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7'); });"
-    );
+    const container = document.getElementById('ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7');
+    if (!container || container.dataset.owmInjected) return;
+    container.dataset.owmInjected = '1';
+    const tag = 'scr' + 'ipt';
+    const range = document.createRange();
+    range.selectNode(document.body);
+    const code = "var constellationWidgetUrl537cd0b76b9543299e6698439e52c2c7, constellationTypeModule537cd0b76b9543299e6698439e52c2c7; constellationWidgetUrl537cd0b76b9543299e6698439e52c2c7 = 'https://reservation.elloha.com/Widget/BookingEngine/537cd0b7-6b95-4329-9e66-98439e52c2c7?idoi=3e4775b2-b254-46b4-8a5a-ccd687d5178d&culture=fr-FR'; constellationTypeModule537cd0b76b9543299e6698439e52c2c7=1; constellationWidgetLoad('ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7'); constellationWidgetAddEvent(window, \"resize\", function () { constellationWidgetSetAppearance('ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7'); });";
+    const frag = range.createContextualFragment('<' + tag + '>' + code + '</' + tag + '>');
+    container.insertAdjacentElement('afterend', frag.firstChild);
   }
 
   _initBooking() {
@@ -606,7 +606,6 @@ class Component extends DCLogic {
       accent,
       isMobile: this.state.isMobile,
       rootRef: (el) => { this._rootEl = el; },
-      bookingEngineRef: (el) => { this._bookingEngineFrame = el; },
       reservationUrl: this.props.reservationUrl || 'https://www.riaddarnajat.com/reservation-en-ligne.html',
       showReviews: this.props.showReviews ?? true,
       toggleLang: () => this.setState(s => ({ lang: s.lang === 'fr' ? 'en' : 'fr' })),
