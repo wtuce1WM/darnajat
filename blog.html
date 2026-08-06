@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#2B2420"/>
+    <path d="M30 85 V50 A20 20 0 0 1 70 50 V85 Z" fill="#C1602A"/>
+    <rect x="30" y="70" width="40" height="15" fill="#2B2420"/>
+  </svg>
+</template>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Work+Sans:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #F7F1E8; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { opacity: 0.75; }
+  </style>
+</helmet>
+
+<div style="font-family:'Work Sans',sans-serif;color:#2B2420;background:#F7F1E8;min-height:100vh;display:flex;flex-direction:column;">
+
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(20px,5vw,64px);background:rgba(247,241,232,0.92);backdrop-filter:blur(6px);border-bottom:1px solid rgba(43,36,32,0.1);">
+    <a href="index.html" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:0.5px;">Dar Najat</a>
+    <nav style="display:flex;align-items:center;gap:clamp(14px,2.5vw,32px);">
+      <a href="index.html#rooms" style="font-size:15px;">Chambres</a>
+      <a href="index.html#restaurant" style="font-size:15px;">Restaurant</a>
+      <a href="index.html#gallery" style="font-size:15px;">Galerie</a>
+      <a href="blog.html" style="font-size:15px;font-weight:600;color:{{ accent }};">Blog</a>
+      <a href="index.html#contact" style="font-size:15px;">Contact</a>
+      <a href="https://www.riaddarnajat.com/reservation-en-ligne.html" target="_blank" style="font-size:14px;font-weight:600;padding:9px 20px;border-radius:24px;color:#fff;background:{{ accent }};white-space:nowrap;">Réserver</a>
+    </nav>
+  </header>
+
+  <section style="padding:clamp(56px,8vh,96px) clamp(20px,5vw,64px) clamp(32px,5vh,56px);max-width:960px;margin:0 auto;text-align:center;">
+    <div style="font-size:13px;letter-spacing:2.5px;font-weight:600;color:{{ accent }};margin-bottom:16px;">LE BLOG</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(32px,5vw,52px);margin:0 0 16px;">Découvrez Marrakech depuis Riad Dar Najat</h1>
+    <p style="font-size:17px;line-height:1.7;font-weight:300;color:#4a423b;margin:0;">Nos adresses préférées autour du riad — spas, restaurants, souks et balades — pour prolonger votre séjour à Marrakech.</p>
+  </section>
+
+  <section style="padding:0 clamp(20px,5vw,64px) clamp(64px,10vh,120px);max-width:1280px;margin:0 auto;flex:1;width:100%;box-sizing:border-box;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;">
+      <sc-for list="{{ posts }}" as="post" hint-placeholder-count="3">
+        <a href="{{ post.href }}" style="background:#fff;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;">
+          <div style="aspect-ratio:16/10;overflow:hidden;">
+            <img src="{{ post.image }}" alt="{{ post.title }}" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          </div>
+          <div style="padding:24px;display:flex;flex-direction:column;gap:10px;flex:1;">
+            <div style="font-size:12px;letter-spacing:1.5px;color:{{ accent }};font-weight:600;">{{ post.tag }}</div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;margin:0;line-height:1.25;">{{ post.title }}</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:#4a423b;font-weight:300;margin:0;flex:1;">{{ post.excerpt }}</p>
+            <span style="font-size:13.5px;font-weight:600;color:{{ accent }};margin-top:8px;">Lire l'article →</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <div style="position:fixed;right:clamp(14px,3vw,28px);bottom:clamp(20px,4vh,40px);z-index:60;display:flex;flex-direction:column;gap:10px;">
+    <button onClick="{{ scrollTop }}" aria-label="Remonter en haut" style="width:44px;height:44px;border:none;border-radius:50%;background:#2B2420;color:#F7F1E8;font-size:18px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;">↑</button>
+    <button onClick="{{ scrollBottom }}" aria-label="Descendre en bas" style="width:44px;height:44px;border:none;border-radius:50%;background:#2B2420;color:#F7F1E8;font-size:18px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;">↓</button>
+  </div>
+
+  <footer style="padding:40px clamp(20px,5vw,64px);background:#2B2420;color:rgba(247,241,232,0.85);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:18px;">Riad Dar Najat — Marrakech</div>
+    <div style="font-size:12.5px;opacity:0.7;">© 2026 Riad Dar Najat. Tous droits réservés.</div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#C1602A&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#C1602A&quot;,&quot;#2F4858&quot;,&quot;#B08D57&quot;]}}">
+const BLOG_POSTS = [
+  {
+    tag: 'À FAIRE',
+    title: '20 adresses authentiques proches de Riad Dar Najat',
+    excerpt: "Restaurants de palais, cafés emblématiques, ateliers d'artisanat, musées et souks — 20 adresses #Authentique dans la médina, Bab Doukkala et la Kasbah.",
+    image: 'https://oneworldmorocco.com/__l5e/assets-v1/e0e22763-70b8-4bbf-bba4-124259f16ff5/20-adresses-authentiques-hero.webp',
+    href: 'blog-20-adresses-authentiques.html',
+  },
+  {
+    tag: 'SHOPPING',
+    title: 'Les 10 meilleures adresses Shopping proches de Riad Dar Najat à Marrakech',
+    excerpt: "Concept stores, maroquinerie de créateur, tapis berbères et épicerie fine — notre sélection shopping à moins d'un kilomètre du riad.",
+    image: 'https://plnphgdrawpsnumnejzc.supabase.co/storage/v1/object/public/business-images/businesses/19240a38-eeae-4196-ac1e-85b2c2d5f045-1771428666035-v5pyed.webp',
+    href: 'blog-10-adresses-shopping.html',
+  },
+  {
+    tag: 'ÉVASION',
+    title: 'Agafay Dream',
+    excerpt: "Camps de luxe, éco-lodges, tables d'exception et aventures — notre sélection sur le plateau désertique d'Agafay, à 45 minutes du riad.",
+    image: 'https://plnphgdrawpsnumnejzc.supabase.co/storage/v1/object/public/business-images/businesses/e05a7ece-e417-4d65-b8a4-17a3ea4f96b3-1770990061094-nfpbf.jpeg',
+    href: 'blog-agafay-dream.html',
+  },
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      accent: this.props.accent || '#C1602A',
+      posts: BLOG_POSTS,
+      scrollTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+      scrollBottom: () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }),
+    };
+  }
+}
+</script>
+</body>
+</html>

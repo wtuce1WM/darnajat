@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#2B2420"/>
+    <path d="M30 85 V50 A20 20 0 0 1 70 50 V85 Z" fill="#C1602A"/>
+    <rect x="30" y="70" width="40" height="15" fill="#2B2420"/>
+  </svg>
+</template>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&amp;family=Work+Sans:wght@300;400;500;600&amp;family=Montserrat:wght@600;700&amp;display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <script src="https://reservation.elloha.com/Scripts/widget-loader.min.js?v=42"></script>
+  <style>
+    body { margin: 0; background: #F7F1E8; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { opacity: 0.75; }
+    @keyframes heroWipe {
+      0% { clip-path: polygon(-15% 0%, -15% 0%, -35% 100%, -35% 100%); }
+      100% { clip-path: polygon(-15% 0%, 130% 0%, 110% 100%, -35% 100%); }
+    }
+  </style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="font-family:'Work Sans',sans-serif;color:#2B2420;background:#F7F1E8;overflow-x:hidden;">
+
+  <!-- NAV -->
+  <header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(20px,5vw,64px);background:rgba(247,241,232,0.92);backdrop-filter:blur(6px);border-bottom:1px solid rgba(43,36,32,0.1);">
+    <a href="#home" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:0.5px;">Dar Najat</a>
+    <sc-if value="{{ !isMobile }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:clamp(14px,2.5vw,32px);">
+        <a href="#about" style="display:none;font-size:15px;">{{ t.nav.home }}</a>
+        <a href="#nearby" style="font-size:15px;">{{ t.nav.nearby }}</a>
+        <a href="#rooms" style="font-size:15px;">{{ t.nav.rooms }}</a>
+        <a href="#restaurant" style="font-size:15px;">{{ t.nav.restaurant }}</a>
+        <a href="blog.html" style="font-size:15px;">{{ t.nav.blog }}</a>
+        <a href="#contact" style="font-size:15px;">{{ t.nav.contact }}</a>
+        <button onClick="{{ toggleLang }}" style="font-size:13px;font-family:'Work Sans',sans-serif;background:none;border:1px solid rgba(43,36,32,0.3);border-radius:20px;padding:5px 12px;cursor:pointer;color:#2B2420;">{{ langSwitchLabel }}</button>
+        <a href="{{ reservationUrl }}" target="_blank" style="font-size:14px;font-weight:600;padding:9px 20px;border-radius:24px;color:#fff;background:{{ accent }};white-space:nowrap;">{{ t.nav.book }}</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMobileNav }}" aria-label="Menu" style="width:36px;height:36px;background:none;border:none;display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:0;">
+        <span style="display:block;height:2px;background:#2B2420;border-radius:1px;"></span>
+        <span style="display:block;height:2px;background:#2B2420;border-radius:1px;"></span>
+        <span style="display:block;height:2px;background:#2B2420;border-radius:1px;"></span>
+      </button>
+    </sc-if>
+  </header>
+  <sc-if value="{{ mobileNavOpen }}" hint-placeholder-val="{{ false }}">
+    <nav style="position:sticky;top:69px;z-index:49;display:flex;flex-direction:column;gap:2px;background:#F7F1E8;border-bottom:1px solid rgba(43,36,32,0.1);padding:8px clamp(20px,5vw,64px) 16px;">
+      <a href="#nearby" onClick="{{ closeMobileNav }}" style="font-size:16px;padding:12px 0;border-bottom:1px solid rgba(43,36,32,0.08);">{{ t.nav.nearby }}</a>
+      <a href="#rooms" onClick="{{ closeMobileNav }}" style="font-size:16px;padding:12px 0;border-bottom:1px solid rgba(43,36,32,0.08);">{{ t.nav.rooms }}</a>
+      <a href="#restaurant" onClick="{{ closeMobileNav }}" style="font-size:16px;padding:12px 0;border-bottom:1px solid rgba(43,36,32,0.08);">{{ t.nav.restaurant }}</a>
+      <a href="blog.html" style="font-size:16px;padding:12px 0;border-bottom:1px solid rgba(43,36,32,0.08);">{{ t.nav.blog }}</a>
+      <a href="#contact" onClick="{{ closeMobileNav }}" style="font-size:16px;padding:12px 0;border-bottom:1px solid rgba(43,36,32,0.08);">{{ t.nav.contact }}</a>
+      <div style="display:flex;align-items:center;gap:12px;padding-top:12px;">
+        <button onClick="{{ toggleLang }}" style="font-size:13px;font-family:'Work Sans',sans-serif;background:none;border:1px solid rgba(43,36,32,0.3);border-radius:20px;padding:7px 14px;cursor:pointer;color:#2B2420;">{{ langSwitchLabel }}</button>
+        <a href="{{ reservationUrl }}" target="_blank" style="flex:1;text-align:center;font-size:14px;font-weight:600;padding:11px 20px;border-radius:24px;color:#fff;background:{{ accent }};white-space:nowrap;">{{ t.nav.book }}</a>
+      </div>
+    </nav>
+  </sc-if>
+
+  <!-- HERO -->
+  <section id="home" data-screen-label="Accueil — Hero" style="position:relative;height:92vh;min-height:560px;display:flex;align-items:flex-end;">
+    <div style="position:absolute;inset:0;">
+      <sc-for list="{{ heroImages }}" as="img" hint-placeholder-count="4">
+        <div style="position:absolute;inset:0;z-index:{{ img.z }};animation:{{ img.anim }};visibility:{{ img.vis }};">
+          <image-slot id="{{ img.id }}" shape="rect" placeholder="{{ img.placeholder }}"></image-slot>
+          <div style="position:absolute;top:16px;left:16px;z-index:10;background:rgba(0,0,0,0.6);color:#fff;font-size:24px;font-weight:700;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;">{{ img.num }}</div>
+        </div>
+      </sc-for>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.7) 100%);pointer-events:none;z-index:3;"></div>
+    </div>
+    <div style="position:relative;padding:0 clamp(20px,5vw,64px) clamp(48px,8vh,96px);color:#fff;max-width:760px;opacity:1;animation:none;text-shadow:0 2px 12px rgba(0,0,0,0.5);z-index:5;">
+      <div style="font-size:13px;letter-spacing:2.5px;font-weight:500;opacity:0.9;margin-bottom:14px;">{{ t.hero.eyebrow }}</div>
+      <span style="display:inline-block;background:#C1602A;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H1</span><h1 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(44px,8vw,84px);line-height:1.02;margin:0 0 20px;">{{ t.hero.title }}</h1>
+      <p style="font-size:clamp(16px,2vw,19px);line-height:1.6;font-weight:300;max-width:560px;margin:0 0 20px;opacity:0.95;">{{ t.hero.subtitle }}</p>
+      <div style="display:inline-flex;align-items:center;gap:10px;font-size:14px;padding:8px 16px;border-radius:20px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.3);margin-bottom:28px;">
+        <span style="width:5px;height:5px;border-radius:50%;background:{{ accent }};flex:none;"></span>
+        {{ t.hero.serviceNote }}
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;position:relative;z-index:5;">
+        <a href="https://www.riaddarnajat.com/reservation-en-ligne.html" target="_blank" style="font-size:15px;font-weight:600;padding:14px 28px;border-radius:28px;color:#fff;background:{{ accent }};box-shadow:0 4px 16px rgba(0,0,0,0.25);">{{ t.hero.cta1 }}</a>
+        <a href="#rooms" style="font-size:15px;font-weight:500;padding:14px 28px;border-radius:28px;border:1px solid rgba(255,255,255,0.6);color:#fff;">{{ t.hero.cta2 }}</a>
+      </div>
+    </div>
+    <div style="position:relative;z-index:6;width:100%;padding:0 clamp(20px,5vw,64px) 0;margin-top:24px;">
+      <iframe ref="{{ bookingEngineRef }}" style="width:100%;min-height:420px;border:0;" title="Riad Dar Najat — Réservation"></iframe>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" data-screen-label="À propos" style="padding:clamp(64px,10vh,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,6vw,80px);align-items:center;max-width:1280px;margin:0 auto;">
+    <div style="aspect-ratio:4/5;border-radius:4px;overflow:hidden;">
+      <image-slot id="about-photo" shape="rect" placeholder="Photo du patio ou de la piscine rooftop"></image-slot>
+    </div>
+    <div>
+      <div style="font-size:13px;letter-spacing:2.5px;font-weight:600;color:{{ accent }};margin-bottom:16px;">{{ t.about.eyebrow }}</div>
+      <span style="display:inline-block;background:#2F4858;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H2</span><h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(30px,4vw,44px);line-height:1.1;margin:0 0 24px;">{{ t.about.title }}</h2>
+      <p style="font-size:17px;line-height:1.75;font-weight:300;color:#4a423b;margin:0 0 32px;">{{ t.about.body }}</p>
+      <sc-for list="{{ t.about.features }}" as="feat" hint-placeholder-count="4">
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid rgba(43,36,32,0.12);font-size:15px;">
+          <span style="width:6px;height:6px;border-radius:50%;background:{{ accent }};flex:none;"></span>
+          {{ feat }}
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE -->
+  <section style="padding:clamp(48px,7vh,80px) clamp(20px,5vw,64px);background:#2B2420;color:#F7F1E8;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <span style="display:inline-block;background:#2F4858;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H2</span><h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,3.4vw,36px);margin:0 0 32px;text-align:center;">{{ t.whyChoose.title }}</h2>
+      <div style="display:flex;flex-direction:column;gap:16px;max-width:640px;margin:0 auto;">
+        <sc-for list="{{ t.whyChoose.items }}" as="reason" hint-placeholder-count="6">
+          <div style="display:flex;align-items:flex-start;gap:12px;font-size:15px;line-height:1.5;">
+            <span style="width:6px;height:6px;border-radius:50%;background:{{ accent }};flex:none;margin-top:8px;"></span>
+            {{ reason }}
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING WIDGET -->
+  <section id="booking" data-screen-label="Réservation" style="padding:clamp(48px,7vh,80px) clamp(20px,5vw,64px);background:#F7F1E8;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="text-align:center;max-width:640px;margin:0 auto 40px;">
+        <div style="font-size:13px;letter-spacing:2.5px;font-weight:600;color:{{ accent }};margin-bottom:16px;">RÉSERVATION</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(30px,4vw,44px);margin:0;">Réservez votre séjour</h2>
+      </div>
+      <div id="ConstellationCalendarContainer126d41de-f4a9-42e1-8cf0-06ecc42d8d53" style="width:100%;text-align:center;" title="Riad Dar Najat" data-id-projet="126d41def4a942e18cf006ecc42d8d53">Chargement en cours...</div>
+    </div>
+  </section>
+
+  <!-- ROOMS -->
+  <section id="rooms" data-screen-label="Chambres" style="padding:clamp(64px,10vh,120px) clamp(20px,5vw,64px);background:#EFE6D8;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <div style="text-align:center;max-width:640px;margin:0 auto 56px;">
+        <div style="font-size:13px;letter-spacing:2.5px;font-weight:600;color:{{ accent }};margin-bottom:16px;">{{ t.roomsSection.eyebrow }}</div>
+        <span style="display:inline-block;background:#2F4858;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H2</span><h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(30px,4vw,44px);margin:0;">{{ t.roomsSection.title }}</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
+        <sc-for list="{{ t.rooms }}" as="room" hint-placeholder-count="4">
+          <div style="background:#fff;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="aspect-ratio:4/3;">
+              <image-slot id="room-{{ room.id }}" shape="rect" placeholder="{{ room.name }} — photo de la chambre"></image-slot>
+            </div>
+            <div style="padding:24px;display:flex;flex-direction:column;gap:10px;flex:1;">
+              <span style="display:inline-block;background:#8A6A1A;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H3</span><h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;margin:0;">{{ room.name }}</h3>
+              <p style="font-size:14.5px;line-height:1.6;color:#4a423b;font-weight:300;margin:0;flex:1;">{{ room.desc }}</p>
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:8px;padding-top:14px;border-top:1px solid rgba(43,36,32,0.1);">
+                <div style="font-size:13px;color:#7a7166;">{{ t.roomsSection.fromLabel }}<br><span style="font-size:20px;color:#2B2420;font-weight:600;">{{ room.price }} €</span> {{ t.roomsSection.perNight }}</div>
+                <div style="font-size:13px;color:#7a7166;">{{ room.cap }} {{ t.roomsSection.capLabel }}</div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESTAURANT -->
+  <section id="restaurant" data-screen-label="Restaurant" style="padding:clamp(64px,10vh,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,6vw,80px);align-items:center;max-width:1280px;margin:0 auto;">
+    <div style="order:2;">
+      <div style="font-size:13px;letter-spacing:2.5px;font-weight:600;color:{{ accent }};margin-bottom:16px;">{{ t.restaurant.eyebrow }}</div>
+      <span style="display:inline-block;background:#2F4858;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H2</span><h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(30px,4vw,44px);line-height:1.1;margin:0 0 24px;">{{ t.restaurant.title }}</h2>
+      <p style="font-size:17px;line-height:1.75;font-weight:300;color:#4a423b;margin:0 0 20px;">{{ t.restaurant.body }}</p>
+      <p style="font-size:16px;line-height:1.7;font-weight:500;color:#2B2420;padding:16px 20px;border-left:2px solid {{ accent }};background:#EFE6D8;margin:0 0 32px;">{{ t.restaurant.highlight }}</p>
+      <a href="{{ reservationUrl }}" target="_blank" style="display:inline-block;font-size:14px;font-weight:600;padding:13px 26px;border-radius:26px;color:#fff;background:{{ accent }};">{{ t.restaurant.cta }}</a>
+    </div>
+    <div style="order:1;aspect-ratio:4/5;border-radius:4px;overflow:hidden;">
+      <image-slot id="restaurant-photo" shape="rect" placeholder="Photo de la table dressée sur la terrasse"></image-slot>
+    </div>
+  </section>
+
+  <!-- AMENITIES -->
+  <section style="padding:clamp(56px,8vh,96px) clamp(20px,5vw,64px);background:#EFE6D8;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <span style="display:inline-block;background:#2F4858;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H2</span><h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,3.4vw,36px);margin:0 0 36px;text-align:center;">{{ t.amenitiesTitle }}</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+        <sc-for list="{{ t.amenities }}" as="am" hint-placeholder-count="10">
+          <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;background:#fff;border-radius:3px;font-size:14.5px;">
+            <span style="width:5px;height:5px;border-radius:50%;background:{{ accent }};flex:none;"></span>
+            {{ am }}
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <sc-if value="{{ showReviews }}" hint-placeholder-val="{{ true }}">
+    <section style="padding:clamp(64px,10vh,120px) clamp(20px,5vw,64px);max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,6vw,80px);align-items:center;">
+      <div>
+        <div style="font-size:13px;letter-spacing:2.5px;font-weight:600;color:{{ accent }};margin-bottom:16px;">{{ t.reviews.eyebrow }}</div>
+        <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:8px;">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:600;">{{ t.reviews.score }}</span>
+          <span style="font-size:20px;font-weight:500;">{{ t.reviews.label }}</span>
+        </div>
+        <p style="font-size:15px;color:#7a7166;margin:0;">{{ t.reviews.count }}</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <sc-for list="{{ t.reviews.categories }}" as="cat" hint-placeholder-count="6">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px;">
+              <span>{{ cat.name }}</span>
+              <span style="font-weight:600;">{{ cat.score }}</span>
+            </div>
+            <div style="height:5px;background:rgba(43,36,32,0.1);border-radius:4px;overflow:hidden;">
+              <div style="height:100%;width:{{ cat.pct }}%;background:{{ accent }};"></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <iframe src="https://oneworldmorocco.com/embed/reviews/riad-dar-najat?platform=all&amp;lang=fr&amp;ratio=vertical&amp;size=sm&amp;fit=h&amp;bg=EFE6D8" style="width:100%;display:block;max-width:460px;height:100%;min-height:560px;border:0;border-radius:20px" title="Avis clients — Riad Dar Najat" loading="lazy"></iframe>
+    </section>
+  </sc-if>
+
+
+  <!-- NEIGHBORHOOD MAP -->
+  <section id="nearby" data-screen-label="À proximité" style="padding:clamp(56px,8vh,96px) 0;background:#EFE6D8;">
+    <span style="display:inline-block;background:#2F4858;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H2</span><h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,3.4vw,36px);margin:0 0 32px;text-align:center;padding:0 clamp(20px,5vw,64px);">{{ t.neighborhoodTitle }}</h2>
+    <iframe src="https://oneworldmorocco.com/embed/nearby/riad-dar-najat?lang=fr&amp;bg=EFE6D8" style="width:100%;height:720px;border:0;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.15)" title="À proximité — Riad Dar Najat" loading="lazy" allow="geolocation"></iframe>
+  </section>
+
+  <!-- BLOG TEASER -->
+  <section data-screen-label="Blog" style="padding:clamp(64px,10vh,120px) clamp(20px,5vw,64px);max-width:1280px;margin:0 auto;">
+    <div style="text-align:center;max-width:640px;margin:0 auto 48px;">
+      <div style="font-size:13px;letter-spacing:2.5px;font-weight:600;color:{{ accent }};margin-bottom:16px;">{{ t.blogTeaser.eyebrow }}</div>
+      <span style="display:inline-block;background:#2F4858;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H2</span><h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(30px,4vw,44px);margin:0;">{{ t.blogTeaser.title }}</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
+      <sc-for list="{{ t.blogTeaser.posts }}" as="post" hint-placeholder-count="1">
+        <a href="{{ post.href }}" style="background:#fff;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;">
+          <div style="aspect-ratio:16/10;overflow:hidden;">
+            <img src="{{ post.image }}" alt="{{ post.title }}" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div style="padding:24px;display:flex;flex-direction:column;gap:10px;">
+            <span style="display:inline-block;background:#8A6A1A;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H3</span><h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;margin:0;line-height:1.25;">{{ post.title }}</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:#4a423b;font-weight:300;margin:0;">{{ post.excerpt }}</p>
+            <span style="font-size:13.5px;font-weight:600;color:{{ accent }};margin-top:8px;">{{ t.blogTeaser.readMore }} →</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="blog.html" style="display:inline-block;font-size:14px;font-weight:600;padding:13px 26px;border-radius:26px;border:1px solid rgba(43,36,32,0.3);">{{ t.blogTeaser.viewAll }}</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" data-screen-label="Contact" style="padding:clamp(64px,10vh,120px) clamp(20px,5vw,64px);max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,6vw,80px);align-items:center;">
+    <div>
+      <div style="font-size:13px;letter-spacing:2.5px;font-weight:600;color:{{ accent }};margin-bottom:16px;">{{ t.contact.eyebrow }}</div>
+      <span style="display:inline-block;background:#2F4858;color:#fff;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;margin-right:8px;font-family:monospace;vertical-align:middle;">H2</span><h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(30px,4vw,44px);line-height:1.1;margin:0 0 28px;">{{ t.contact.title }}</h2>
+      <div style="font-size:16px;line-height:1.8;color:#4a423b;margin-bottom:24px;">
+        <sc-for list="{{ t.contact.addressLines }}" as="line" hint-placeholder-count="3">
+          <div>{{ line }}</div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:16px;margin-bottom:32px;">
+        <a href="tel:+212524375085">+212 5 24 37 50 85</a>
+        <a href="https://wa.me/212661439221" target="_blank">WhatsApp: +212 661 43 92 21</a>
+        <a href="mailto:black_zitoun@yahoo.fr">black_zitoun@yahoo.fr</a>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="{{ reservationUrl }}" target="_blank" style="display:inline-block;font-size:14px;font-weight:600;padding:13px 26px;border-radius:26px;color:#fff;background:{{ accent }};">{{ t.contact.bookCta }}</a>
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;">
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <a href="https://search.google.com/local/writereview?placeid=ChIJ_zZVr0Hurw0R6qoRAL8wVvk" target="_blank" style="font-size:15px;font-weight:600;">Google — 4.8/5 <span style="font-weight:400;opacity:0.7;">(214 avis)</span></a>
+          <a href="https://search.google.com/local/writereview?placeid=ChIJ_zZVr0Hurw0R6qoRAL8wVvk" target="_blank" style="font-size:13px;color:{{ accent }};">Laisser un avis</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <a href="https://www.tripadvisor.fr/Hotel_Review-g293734-d647710-Reviews-Riad_Dar_Najat-Marrakech_Marrakech_Safi.html?m=66827" target="_blank" style="font-size:15px;font-weight:600;">Tripadvisor — 4.9/5 <span style="font-weight:400;opacity:0.7;">(1604 avis)</span></a>
+          <a href="https://www.tripadvisor.fr/UserReview-g293734-d647710-Riad_Dar_Najat-Marrakech_Marrakech_Safi.html?m=66827" target="_blank" style="font-size:13px;color:{{ accent }};">Laisser un avis</a>
+        </div>
+      </div>
+    </div>
+    <div style="aspect-ratio:4/3;border-radius:4px;overflow:hidden;">
+      <iframe src="https://maps.google.com/maps?q=Riad+Dar+Najat+Derb+Lalla+Chacha+Marrakech&amp;output=embed" style="width:100%;height:100%;border:0;" title="Riad Dar Najat sur la carte" loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <!-- WEATHER -->
+  <div style="width:100%;background:#EFE6D8;">
+    <iframe id="owm-weather-footer" src="https://oneworldmorocco.com/embed/weather?city=Marrakech&amp;lang=fr&amp;layout=footer&amp;days=3&amp;bg=EFE6D8" style="width:100%;display:block;height:96px;border:0;border-radius:0px;background:transparent" title="Météo — Marrakech" loading="lazy"></iframe>
+  </div>
+
+  <!-- AI ASSISTANT WIDGET -->
+  <button onClick="{{ toggleAssistant }}" aria-label="Ouvrir l'assistant IA" style="position:fixed;top:50%;right:max(16px, env(safe-area-inset-right));transform:translateY(-50%) rotate(-90deg);transform-origin:right center;background:#C04F17;color:#fff;padding:14px 22px;border:none;border-radius:8px 8px 0 0;font-family:Montserrat,sans-serif;font-weight:600;font-size:13px;letter-spacing:0.05em;white-space:nowrap;cursor:pointer;z-index:999998;box-shadow:0 4px 20px rgba(0,0,0,0.3);">Assistant 1WM</button>
+  <div role="dialog" aria-hidden="{{ assistantAriaHidden }}" style="position:fixed;top:0;right:{{ assistantRight }};width:{{ assistantWidth }};height:100vh;background:#fff;z-index:999999;transition:right .35s ease;box-shadow:-8px 0 40px rgba(0,0,0,.25);display:flex;flex-direction:column;">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#0F172A;color:#fff;font-family:Montserrat,sans-serif;font-weight:600;font-size:14px;">
+      <span>Assistant — Riad Dar Najat</span>
+      <button onClick="{{ closeAssistant }}" aria-label="Fermer" style="background:transparent;border:none;color:#fff;font-size:22px;cursor:pointer;padding:0 8px;">✕</button>
+    </div>
+    <iframe src="https://oneworldmorocco.com/embed/ask/riad-dar-najat?theme=dark&amp;lang=fr" title="Assistant IA — Riad Dar Najat" allow="clipboard-write; geolocation" loading="lazy" style="flex:1;width:100%;border:none;"></iframe>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="position:fixed;right:clamp(14px,3vw,28px);bottom:clamp(20px,4vh,40px);z-index:60;display:flex;flex-direction:column;gap:10px;">
+    <button onClick="{{ scrollTop }}" aria-label="Remonter en haut" style="width:44px;height:44px;border:none;border-radius:50%;background:#2B2420;color:#F7F1E8;font-size:18px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;">↑</button>
+    <button onClick="{{ scrollBottom }}" aria-label="Descendre en bas" style="width:44px;height:44px;border:none;border-radius:50%;background:#2B2420;color:#F7F1E8;font-size:18px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;">↓</button>
+  </div>
+
+  <footer style="background:#2B2420;color:rgba(247,241,232,0.85);">
+    <div style="padding:40px clamp(20px,5vw,64px);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;">{{ t.footer.tagline }}</div>
+      <div style="display:flex;gap:24px;font-size:13px;flex-wrap:wrap;">
+        <a href="#">{{ t.footer.legal1 }}</a>
+        <a href="#">{{ t.footer.legal2 }}</a>
+      </div>
+      <div style="font-size:12.5px;opacity:0.7;">{{ t.footer.rights }}</div>
+    </div>
+    <div style="border-top:1px solid rgba(247,241,232,0.12);padding:22px clamp(20px,5vw,64px);display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:12.5px;letter-spacing:0.5px;">
+        <a href="https://www.facebook.com/riad.dar.najat" target="_blank">Facebook</a>
+        <a href="https://www.instagram.com/riaddarnajat/?hl=en" target="_blank">Instagram</a>
+        <a href="https://www.youtube.com/c/DarNajatriad/videos" target="_blank">YouTube</a>
+        <a href="https://www.tiktok.com/@worldtravellersunited" target="_blank">TikTok</a>
+        <a href="https://fr.pinterest.com/OneWorldMorocco/riad-dar-najat-best-place-to-stay-in-marrakech-for/" target="_blank">Pinterest</a>
+        <a href="https://open.spotify.com/playlist/7MrOkLdTofTr5VCNgiug9h" target="_blank">Spotify</a>
+        <a href="https://soundcloud.com/dar-najat" target="_blank">SoundCloud</a>
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:12.5px;letter-spacing:0.5px;opacity:0.75;">
+        <a href="https://www.wtuce.org/" target="_blank">WTUCE</a>
+        <a href="https://oneworldmorocco.com/" target="_blank">One World Morocco</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#C1602A&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#C1602A&quot;,&quot;#2F4858&quot;,&quot;#B08D57&quot;],&quot;section&quot;:&quot;Style&quot;},&quot;reservationUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://www.riaddarnajat.com/reservation-en-ligne.html&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Réservation&quot;},&quot;showReviews&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+const CONTENT = {
+  fr: {
+    nav: { home:'Accueil', nearby:'À proximité', rooms:'Chambres', restaurant:'Restaurant', blog:'Blog', contact:'Contact', book:'Réserver' },
+    hero: {
+      eyebrow: 'MÉDINA DE MARRAKECH',
+      title: 'Riad Dar Najat',
+      subtitle: "Une maison d'hôtes de charme au cœur de la médina, à cinq minutes à pied de la place Jemaa El Fna.",
+      serviceNote: 'Dîner marocain sous les étoiles sur notre rooftop, face aux toits de la médina',
+      cta1: 'Réserver un séjour', cta2: 'Découvrir les chambres',
+    },
+    about: {
+      eyebrow: 'BIENVENUE',
+      title: "Un refuge intime au cœur de la médina",
+      body: "Au cœur de la médina, à quelques minutes de la place Jemaa el-Fna et du Palais Bahia, Dar Najat est une adresse confidentielle où authenticité, confort et hospitalité marocaine se conjuguent à merveille. Son rooftop avec piscine chauffée — un équipement rare dans la médina — offre une vue panoramique sur les toits de Marrakech et les montagnes de l'Atlas, en toute saison.",
+      features: [
+        'Chambres autour d\u2019un patio traditionnel',
+        'Piscine chauffée sur le rooftop',
+        'À 5 minutes à pied de Jemaa El Fna',
+        'Équipe trilingue — français, anglais, espagnol',
+      ],
+    },
+    whyChoose: {
+      title: 'Pourquoi choisir Dar Najat',
+      items: [
+        "Piscine chauffée sur le rooftop, accessible toute l'année",
+        "Vue panoramique sur la médina et les montagnes de l'Atlas",
+        'Cuisine marocaine maison — tajines, couscous, tanjia',
+        'Petit-déjeuner marocain généreux servi en terrasse',
+        'À quelques minutes de la place Jemaa el-Fna',
+        'Cadre romantique, calme et authentique',
+      ],
+    },
+    roomsSection: { eyebrow:'HÉBERGEMENT', title:'Nos chambres', fromLabel:'à partir de', perNight:'/ nuit', capLabel:'pers.' },
+    rooms: [
+      { id:'bestof', name:'Best Of', price:'110', cap:'2', desc:"La plus intime des chambres, tout en douceur, avec les œuvres de l'artiste Said Boussaba." },
+      { id:'deluxe', name:'De Luxe — Twin ou Double', price:'110', cap:'2', desc:'Confort raffiné, climatisation réversible et wifi haut débit pour un séjour sans compromis.' },
+      { id:'regular', name:'Regular', price:'98', cap:'2', desc:'Un lit à baldaquin en bois massif dans une harmonie de teintes chaudes.' },
+      { id:'superior', name:'Superior — Twin ou Double', price:'110', cap:'3', desc:'La plus spacieuse des chambres, idéale pour une famille ou trois amis.' },
+    ],
+    restaurant: {
+      eyebrow: 'GASTRONOMIE MAROCAINE',
+      title: 'Dar Najat\'s Kitchen',
+      body: "Notre cuisine met à l'honneur les recettes familiales marocaines\u00a0: salades, zaalouk, briouates et harira en entrée, puis tajines de poulet au citron confit, d'agneau aux pruneaux, de kefta, couscous du jour et tanjia marrakchie longuement mijotée. Le matin, msemen, baghrir et confitures maison sont servis en terrasse.",
+      highlight: "Dîner sous les étoiles — chaque soir, le rooftop se transforme en table romantique face aux toits de la médina et à l'Atlas, pour un dîner marocain maison à réserver à l'avance.",
+      cta: 'Réserver une table',
+    },
+    amenitiesTitle: 'Votre confort',
+    amenities: [
+      'Wifi haut débit gratuit','Climatisation réversible','Piscine chauffée sur le rooftop','Terrasse panoramique',
+      'Petit-déjeuner marocain','Restaurant sur place','Massages','Parking privé à proximité','Navette aéroport sur demande','Coffre-fort en chambre',
+    ],
+    reviews: {
+      eyebrow: 'AVIS VOYAGEURS', score:'9.7', label:'Exceptionnel', count:'910 séjours notés',
+      categories: [
+        { name:'Propreté', score:'9.7', pct:97 }, { name:'Situation', score:'9.8', pct:98 },
+        { name:'Confort', score:'9.6', pct:96 }, { name:'Équipement', score:'9.5', pct:95 },
+        { name:'Personnel', score:'9.9', pct:99 }, { name:'Rapport qualité / prix', score:'9.5', pct:95 },
+      ],
+    },
+    contact: {
+      eyebrow: 'NOUS TROUVER', title: 'Venir au Riad Dar Najat',
+      addressLines: ['Derb Lalla Chacha, N°18','Douar Graoua','40000 Marrakech, Maroc'],
+      bookCta: 'Vérifier les disponibilités',
+    },
+    neighborhoodTitle: 'À proximité du Riad, entre Koutoubia, Souks, Place Jemaa el Fna, Kasbah et Mellah',
+    weatherTitle: 'La météo à Marrakech',
+    blogTeaser: {
+      eyebrow: 'LE BLOG', title: 'Découvrez Marrakech depuis Riad Dar Najat', readMore: "Lire l'article", viewAll: 'Voir tous les articles',
+      posts: [
+        { title:'20 adresses authentiques proches de Riad Dar Najat', excerpt:"Restaurants de palais, cafés emblématiques, ateliers d'artisanat, musées et souks — 20 adresses #Authentique dans la médina, Bab Doukkala et la Kasbah.", image:'https://oneworldmorocco.com/__l5e/assets-v1/e0e22763-70b8-4bbf-bba4-124259f16ff5/20-adresses-authentiques-hero.webp', href:'Blog - 20 adresses authentiques.dc.html' },
+      ],
+    },
+    footer: { tagline:'Riad Dar Najat — Marrakech', legal1:'Mentions légales', legal2:'Conditions générales de vente', rights:'© 2026 Riad Dar Najat. Tous droits réservés.' },
+  },
+  en: {
+    nav: { home:'Home', nearby:'Nearby', rooms:'Rooms', restaurant:'Restaurant', blog:'Blog', contact:'Contact', book:'Book now' },
+    hero: {
+      eyebrow: 'MARRAKECH MEDINA',
+      title: 'Riad Dar Najat',
+      subtitle: "A charming guesthouse in the heart of the medina, a five-minute walk from Jemaa El Fna square.",
+      serviceNote: 'Moroccan dinner under the stars on our rooftop, facing the medina',
+      cta1: 'Book your stay', cta2: 'See the rooms',
+    },
+    about: {
+      eyebrow: 'WELCOME',
+      title: 'An intimate refuge in the heart of the medina',
+      body: "In the heart of the medina, minutes from Jemaa el-Fna square and the Bahia Palace, Dar Najat is a hidden gem where authenticity, comfort and Moroccan hospitality come together beautifully. Its rooftop heated pool — a rarity in the medina — offers panoramic views over the rooftops of Marrakech and the Atlas mountains, whatever the season.",
+      features: [
+        'Rooms set around a traditional patio',
+        'Heated rooftop pool',
+        '5-minute walk from Jemaa El Fna',
+        'Trilingual staff — French, English, Spanish',
+      ],
+    },
+    whyChoose: {
+      title: 'Why choose Dar Najat',
+      items: [
+        'Rooftop heated pool, open year-round',
+        'Panoramic views over the medina and the Atlas mountains',
+        'Home-style Moroccan cooking — tajines, couscous, tanjia',
+        'Generous Moroccan breakfast served on the terrace',
+        'Minutes from Jemaa el-Fna square',
+        'Romantic, quiet and authentic setting',
+      ],
+    },
+    roomsSection: { eyebrow:'ACCOMMODATION', title:'Our rooms', fromLabel:'from', perNight:'/ night', capLabel:'guests' },
+    rooms: [
+      { id:'bestof', name:'Best Of', price:'110', cap:'2', desc:"Our most intimate room, softly appointed, with artwork by artist Said Boussaba." },
+      { id:'deluxe', name:'De Luxe — Twin or Double', price:'110', cap:'2', desc:'Refined comfort, reversible air conditioning and fast wifi for an effortless stay.' },
+      { id:'regular', name:'Regular', price:'98', cap:'2', desc:'A solid-wood four-poster bed set among warm, harmonious tones.' },
+      { id:'superior', name:'Superior — Twin or Double', price:'110', cap:'3', desc:'Our largest room, perfect for a family or three friends travelling together.' },
+    ],
+    restaurant: {
+      eyebrow: 'GASTRONOMY',
+      title: "Malika's kitchen",
+      body: "Our kitchen celebrates home-style Moroccan family recipes: salads, zaalouk, briouates and harira to start, then chicken tajine with preserved lemon and olives, lamb tajine with prunes and almonds, kefta tajine, seasonal couscous and slow-cooked Marrakchi tanjia. Mornings bring msemen, baghrir and homemade jams on the terrace.",
+      highlight: "Dinner under the stars — every evening, the rooftop turns into a romantic table facing the medina's rooftops and the Atlas, for a home-style Moroccan dinner booked in advance.",
+      cta: 'Book a table',
+    },
+    amenitiesTitle: 'Your comfort',
+    amenities: [
+      'Free fast wifi','Reversible air conditioning','Heated rooftop pool','Panoramic terrace',
+      'Moroccan breakfast','On-site restaurant','Massages','Private parking nearby','Airport shuttle on request','In-room safe',
+    ],
+    reviews: {
+      eyebrow: 'GUEST REVIEWS', score:'9.7', label:'Exceptional', count:'910 rated stays',
+      categories: [
+        { name:'Cleanliness', score:'9.7', pct:97 }, { name:'Location', score:'9.8', pct:98 },
+        { name:'Comfort', score:'9.6', pct:96 }, { name:'Facilities', score:'9.5', pct:95 },
+        { name:'Staff', score:'9.9', pct:99 }, { name:'Value for money', score:'9.5', pct:95 },
+      ],
+    },
+    contact: {
+      eyebrow: 'FIND US', title: 'Getting to Riad Dar Najat',
+      addressLines: ['Derb Lalla Chacha, N°18','Douar Graoua','40000 Marrakech, Morocco'],
+      bookCta: 'Check availability',
+    },
+    neighborhoodTitle: 'Near the Riad, between the Souks, Jemaa el Fna Square, Kasbah and Mellah',
+    weatherTitle: 'Weather in Marrakech',
+    blogTeaser: {
+      eyebrow: 'FROM THE BLOG', title: 'Discover Marrakech from Riad Dar Najat', readMore: 'Read the article', viewAll: 'View all articles',
+      posts: [
+        { title:'20 authentic addresses near Riad Dar Najat', excerpt:'Palace restaurants, iconic cafés, artisan workshops, museums and souks — 20 #Authentic addresses in the medina, Bab Doukkala and the Kasbah.', image:'https://oneworldmorocco.com/__l5e/assets-v1/e0e22763-70b8-4bbf-bba4-124259f16ff5/20-adresses-authentiques-hero.webp', href:'Blog - 20 adresses authentiques.dc.html' },
+      ],
+    },
+    footer: { tagline:'Riad Dar Najat — Marrakech', legal1:'Legal notice', legal2:'Terms & conditions', rights:'© 2026 Riad Dar Najat. All rights reserved.' },
+  },
+};
+
+const HERO_IMAGES = [
+  { id: 'hero-bg-1', placeholder: 'Photo hero 1 — façade ou entrée du riad' },
+  { id: 'hero-bg-2', placeholder: 'Photo hero 2 — patio' },
+  { id: 'hero-bg-3', placeholder: 'Photo hero 3 — piscine chauffée rooftop' },
+  { id: 'hero-bg-4', placeholder: 'Photo hero 4 — terrasse au coucher du soleil' },
+];
+
+const HERO_IMAGES_MOBILE = [
+  { id: 'hero-bg-mobile-1', placeholder: 'Photo hero mobile 1 — façade ou entrée du riad' },
+  { id: 'hero-bg-mobile-2', placeholder: 'Photo hero mobile 2 — patio' },
+  { id: 'hero-bg-mobile-3', placeholder: 'Photo hero mobile 3 — piscine chauffée rooftop' },
+  { id: 'hero-bg-mobile-4', placeholder: 'Photo hero mobile 4 — terrasse au coucher du soleil' },
+];
+
+class Component extends DCLogic {
+  state = { lang: 'fr', activeHero: 0, assistantOpen: false, isMobile: window.innerWidth <= 768, mobileNavOpen: false };
+
+  _injectWidgetScript(containerId, code) {
+    const container = document.getElementById(containerId);
+    if (!container || container.dataset.owmInjected) return;
+    container.dataset.owmInjected = '1';
+    const tag = 'scr' + 'ipt';
+    const range = document.createRange();
+    range.selectNode(document.body);
+    const frag = range.createContextualFragment('<' + tag + '>' + code + '</' + tag + '>');
+    container.insertAdjacentElement('afterend', frag.firstChild);
+  }
+
+  _widgetSrcdoc(containerId, code) {
+    const tag = 'scr' + 'ipt';
+    return '<!doctype html><html><head><' + tag + ' src="https://reservation.elloha.com/Scripts/widget-loader.min.js?v=42"></' + tag + '></head><body style="margin:0;font-family:sans-serif;"><div id="' + containerId + '" style="width:100%">Chargement en cours...</div><' + tag + '>' + code + '</' + tag + '></body></html>';
+  }
+
+  _initBookingEngine() {
+    if (this._bookingEngineFrame) this._bookingEngineFrame.srcdoc = this._widgetSrcdoc(
+      'ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7',
+      "var constellationWidgetUrl537cd0b76b9543299e6698439e52c2c7, constellationTypeModule537cd0b76b9543299e6698439e52c2c7; constellationWidgetUrl537cd0b76b9543299e6698439e52c2c7 = 'https://reservation.elloha.com/Widget/BookingEngine/537cd0b7-6b95-4329-9e66-98439e52c2c7?idoi=3e4775b2-b254-46b4-8a5a-ccd687d5178d&culture=fr-FR'; constellationTypeModule537cd0b76b9543299e6698439e52c2c7=1; constellationWidgetLoad('ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7'); constellationWidgetAddEvent(window, \"resize\", function () { constellationWidgetSetAppearance('ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7'); });"
+    );
+  }
+
+  _initBooking() {
+    const container = document.getElementById('ConstellationCalendarContainer126d41de-f4a9-42e1-8cf0-06ecc42d8d53');
+    if (!container || container.dataset.owmInjected) return;
+    container.dataset.owmInjected = '1';
+    const tag = 'scr' + 'ipt';
+    const range = document.createRange();
+    range.selectNode(document.body);
+    const code = "var constellationWidgetUrl126d41def4a942e18cf006ecc42d8d53, constellationTypeModule126d41def4a942e18cf006ecc42d8d53; constellationWidgetUrl126d41def4a942e18cf006ecc42d8d53 = 'https://reservation.elloha.com/Widget/BookingCalendar/126d41de-f4a9-42e1-8cf0-06ecc42d8d53?idoi=3e4775b2-b254-46b4-8a5a-ccd687d5178d'; constellationTypeModule126d41def4a942e18cf006ecc42d8d53=2; constellationBookingCalendarLoad('ConstellationCalendarContainer126d41de-f4a9-42e1-8cf0-06ecc42d8d53'); constellationWidgetAddEvent(window, \"resize\", function () { constellationWidgetSetAppearance('ConstellationCalendarContainer126d41de-f4a9-42e1-8cf0-06ecc42d8d53'); });";
+    const frag = range.createContextualFragment('<' + tag + '>' + code + '</' + tag + '>');
+    container.insertAdjacentElement('afterend', frag.firstChild);
+  }
+
+  componentDidMount() {
+    this._reviewsHeightHandler = (e) => {
+      if (!e.data || e.data.type !== 'owm-reviews-height') return;
+      const f = document.getElementById('owm-reviews');
+      if (f) f.style.height = Math.ceil(e.data.height) + 'px';
+    };
+    window.addEventListener('message', this._reviewsHeightHandler);
+    this._weatherHeightHandler = (e) => {
+      if (!e.data || e.data.type !== 'owm-weather-height') return;
+      const f = document.getElementById('owm-weather-footer');
+      if (f) f.style.height = Math.ceil(e.data.height) + 'px';
+    };
+    window.addEventListener('message', this._weatherHeightHandler);
+    this._heroTimer = setInterval(() => {
+      this.setState(s => ({ activeHero: (s.activeHero + 1) % HERO_IMAGES.length }));
+    }, 6000);
+    this._escHandler = (e) => { if (e.key === 'Escape') this.setState({ assistantOpen: false }); };
+    document.addEventListener('keydown', this._escHandler);
+    this._initBooking();
+    this._initBookingEngine();
+    const root = this._rootEl;
+    const measure = () => {
+      const w = (root && root.getBoundingClientRect().width) || window.innerWidth;
+      this.setState({ isMobile: w <= 768 });
+    };
+    measure();
+    if (root && window.ResizeObserver) {
+      this._resizeObserver = new ResizeObserver(measure);
+      this._resizeObserver.observe(root);
+    } else {
+      this._resizeHandler = measure;
+      window.addEventListener('resize', this._resizeHandler);
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._heroTimer);
+    document.removeEventListener('keydown', this._escHandler);
+    window.removeEventListener('message', this._reviewsHeightHandler);
+    window.removeEventListener('message', this._weatherHeightHandler);
+    if (this._resizeObserver) this._resizeObserver.disconnect();
+    if (this._resizeHandler) window.removeEventListener('resize', this._resizeHandler);
+  }
+
+  renderVals() {
+    const lang = this.state.lang;
+    const accent = this.props.accent || '#C1602A';
+    const active = this.state.activeHero;
+    const heroImages = (this.state.isMobile ? HERO_IMAGES_MOBILE : HERO_IMAGES).map((img, i) => ({
+      ...img,
+      num: i + 1,
+      z: i === active ? 2 : 1,
+      anim: i === active ? 'heroWipe 1.4s ease-out forwards' : 'none',
+      vis: i === active ? 'visible' : 'hidden',
+    }));
+    return {
+      heroImages,
+      t: CONTENT[lang],
+      lang,
+      langSwitchLabel: lang === 'fr' ? 'EN' : 'FR',
+      accent,
+      isMobile: this.state.isMobile,
+      rootRef: (el) => { this._rootEl = el; },
+      bookingEngineRef: (el) => { this._bookingEngineFrame = el; },
+      reservationUrl: this.props.reservationUrl || 'https://www.riaddarnajat.com/reservation-en-ligne.html',
+      showReviews: this.props.showReviews ?? true,
+      toggleLang: () => this.setState(s => ({ lang: s.lang === 'fr' ? 'en' : 'fr' })),
+      mobileNavOpen: this.state.mobileNavOpen,
+      toggleMobileNav: () => this.setState(s => ({ mobileNavOpen: !s.mobileNavOpen })),
+      closeMobileNav: () => this.setState({ mobileNavOpen: false }),
+      assistantRight: this.state.assistantOpen ? '0' : '-100%',
+      assistantWidth: this.state.isMobile ? '100vw' : '50vw',
+      assistantAriaHidden: this.state.assistantOpen ? 'false' : 'true',
+      toggleAssistant: () => this.setState(s => ({ assistantOpen: !s.assistantOpen })),
+      closeAssistant: () => this.setState({ assistantOpen: false }),
+      scrollTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+      scrollBottom: () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }),
+    };
+  }
+}
+</script>
+</body>
+</html>
