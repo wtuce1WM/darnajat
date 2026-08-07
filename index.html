@@ -43,7 +43,7 @@
         <a href="blog.html" style="font-size:15px;">{{ t.nav.blog }}</a>
         <a href="#contact" style="font-size:15px;">{{ t.nav.contact }}</a>
         <button onClick="{{ toggleLang }}" style="font-size:13px;font-family:'Work Sans',sans-serif;background:none;border:1px solid rgba(43,36,32,0.3);border-radius:20px;padding:5px 12px;cursor:pointer;color:#2B2420;">{{ langSwitchLabel }}</button>
-        <a href="{{ reservationUrl }}" target="_blank" style="font-size:14px;font-weight:600;padding:9px 20px;border-radius:24px;color:#fff;background:{{ accent }};white-space:nowrap;">{{ t.nav.book }}</a>
+        <a href="reserver.html" style="font-size:14px;font-weight:600;padding:9px 20px;border-radius:24px;color:#fff;background:{{ accent }};white-space:nowrap;">{{ t.nav.book }}</a>
       </nav>
     </sc-if>
     <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
@@ -63,7 +63,7 @@
       <a href="#contact" onClick="{{ closeMobileNav }}" style="font-size:16px;padding:12px 0;border-bottom:1px solid rgba(43,36,32,0.08);">{{ t.nav.contact }}</a>
       <div style="display:flex;align-items:center;gap:12px;padding-top:12px;">
         <button onClick="{{ toggleLang }}" style="font-size:13px;font-family:'Work Sans',sans-serif;background:none;border:1px solid rgba(43,36,32,0.3);border-radius:20px;padding:7px 14px;cursor:pointer;color:#2B2420;">{{ langSwitchLabel }}</button>
-        <a href="{{ reservationUrl }}" target="_blank" style="flex:1;text-align:center;font-size:14px;font-weight:600;padding:11px 20px;border-radius:24px;color:#fff;background:{{ accent }};white-space:nowrap;">{{ t.nav.book }}</a>
+        <a href="reserver.html" style="flex:1;text-align:center;font-size:14px;font-weight:600;padding:11px 20px;border-radius:24px;color:#fff;background:{{ accent }};white-space:nowrap;">{{ t.nav.book }}</a>
       </div>
     </nav>
   </sc-if>
@@ -92,8 +92,8 @@
         <a href="#rooms" style="font-size:15px;font-weight:500;padding:14px 28px;border-radius:28px;border:1px solid rgba(255,255,255,0.6);color:#fff;">{{ t.hero.cta2 }}</a>
       </div>
     </div>
-    <div style="position:relative;z-index:6;width:100%;padding:0 clamp(20px,5vw,64px) 0;margin-top:24px;">
-      <div id="ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7" style="width:100%;min-height:420px;" title="Riad Dar Najat " data-id-projet="537cd0b76b9543299e6698439e52c2c7">Chargement en cours...</div>
+    <div style="position:relative;z-index:6;width:100%;padding:0 clamp(20px,5vw,64px);background:transparent;text-align:left;">
+      <div id="ConstellationWidgetContainer537cd0b7-6b95-4329-9e66-98439e52c2c7" style="width:100%;max-width:760px;margin:0;min-height:120px;" title="Riad Dar Najat " data-id-projet="537cd0b76b9543299e6698439e52c2c7">Chargement en cours...</div>
     </div>
   </section>
 
@@ -299,9 +299,9 @@
   </div>
 
   <!-- AI ASSISTANT WIDGET -->
-  <button onClick="{{ toggleAssistant }}" aria-label="Ouvrir l'assistant IA" style="position:fixed;top:50%;right:max(16px, env(safe-area-inset-right));transform:translateY(-50%) rotate(-90deg);transform-origin:right center;background:#C04F17;color:#fff;padding:14px 22px;border:none;border-radius:8px 8px 0 0;font-family:Montserrat,sans-serif;font-weight:600;font-size:13px;letter-spacing:0.05em;white-space:nowrap;cursor:pointer;z-index:999998;box-shadow:0 4px 20px rgba(0,0,0,0.3);">Assistant 1WM</button>
-  <div role="dialog" aria-hidden="{{ assistantAriaHidden }}" style="position:fixed;top:0;right:{{ assistantRight }};width:{{ assistantWidth }};height:100vh;background:#2B2420;color-scheme:dark;z-index:999999;transition:right .35s ease;box-shadow:-8px 0 40px rgba(0,0,0,.25);display:flex;flex-direction:column;">
-    <iframe src="https://oneworldmorocco.com/embed/ask/riad-dar-najat?theme=dark&amp;lang=fr&amp;bg=transparent&amp;card=2B2420&amp;panel=1" title="Assistant IA — Riad Dar Najat" allow="clipboard-write; geolocation" loading="lazy" style="flex:1;width:100%;border:none;background:#2B2420;"></iframe>
+  <button onClick="{{ toggleAssistant }}" aria-label="Ouvrir l'assistant IA" style="position:fixed;top:25%;right:max(16px, env(safe-area-inset-right));transform:translateY(-50%) rotate(-90deg);transform-origin:right center;background:#C04F17;color:#fff;padding:14px 22px;border:none;border-radius:8px 8px 0 0;font-family:Montserrat,sans-serif;font-weight:600;font-size:13px;letter-spacing:0.05em;white-space:nowrap;cursor:pointer;z-index:999998;box-shadow:0 4px 20px rgba(0,0,0,0.3);">Assistant 1WM</button>
+  <div role="dialog" aria-hidden="{{ assistantAriaHidden }}" style="position:fixed;top:0;right:{{ assistantRight }};width:{{ assistantWidth }};height:100vh;background:{{ assistantBg }};color-scheme:{{ assistantTheme }};z-index:999999;transition:right .35s ease;box-shadow:-8px 0 40px rgba(0,0,0,.25);display:flex;flex-direction:column;">
+    <iframe src="https://oneworldmorocco.com/embed/ask/riad-dar-najat?theme=dark&amp;lang=fr&amp;bg=transparent&amp;card=2B2420&amp;panel=1&amp;name=Zitoun%20IA" title="Assistant IA — Riad Dar Najat" allow="clipboard-write; geolocation" loading="lazy" style="flex:1;width:100%;border:none;background:{{ assistantBg }};"></iframe>
   </div>
 
   <!-- FOOTER -->
@@ -506,7 +506,7 @@ const HERO_IMAGES_MOBILE = [
 ];
 
 class Component extends DCLogic {
-  state = { lang: 'fr', activeHero: 0, assistantOpen: false, isMobile: window.innerWidth <= 768, mobileNavOpen: false, scrolled: false };
+  state = { lang: 'fr', activeHero: 0, assistantOpen: false, assistantBg: '#2B2420', assistantTheme: 'dark', isMobile: window.innerWidth <= 768, mobileNavOpen: false, scrolled: false };
 
   _injectWidgetScript(containerId, code) {
     const container = document.getElementById(containerId);
@@ -566,7 +566,13 @@ class Component extends DCLogic {
     }, 6000);
     this._escHandler = (e) => { if (e.key === 'Escape') this.setState({ assistantOpen: false }); };
     document.addEventListener('keydown', this._escHandler);
-    this._assistantCloseHandler = (e) => { if (e && e.data && e.data.type === 'owm-embed-close') this.setState({ assistantOpen: false }); };
+    this._assistantCloseHandler = (e) => {
+      if (!e || !e.data) return;
+      if (e.data.type === 'owm-embed-close') this.setState({ assistantOpen: false });
+      if (e.data.type === 'owm-embed-theme' && /^#[0-9A-Fa-f]{6}$/.test(e.data.background || '')) {
+        this.setState({ assistantBg: e.data.background, assistantTheme: e.data.theme === 'dark' ? 'dark' : 'light' });
+      }
+    };
     window.addEventListener('message', this._assistantCloseHandler);
     const loadScript = (src) => new Promise((resolve) => { const s = document.createElement('scr' + 'ipt'); s.src = src; s.onload = resolve; s.onerror = resolve; document.body.appendChild(s); });
     loadScript('https://reservation.elloha.com/Scripts/widget-loader.min.js?v=42').then(() => {
@@ -624,6 +630,7 @@ class Component extends DCLogic {
       headerBorderOpacity: scrolled ? 0.14 : 0,
       headerShadow: scrolled ? '0 6px 24px rgba(43,36,32,0.12)' : 'none',
       headerOffset: scrolled ? '61px' : '73px',
+      heroOffset: scrolled ? '181px' : '193px',
       rootRef: (el) => { this._rootEl = el; },
       reservationUrl: this.props.reservationUrl || 'https://www.riaddarnajat.com/reservation-en-ligne.html',
       showReviews: this.props.showReviews ?? true,
@@ -634,6 +641,8 @@ class Component extends DCLogic {
       assistantRight: this.state.assistantOpen ? '0' : '-100%',
       assistantWidth: this.state.isMobile ? '100vw' : '50vw',
       assistantAriaHidden: this.state.assistantOpen ? 'false' : 'true',
+      assistantBg: this.state.assistantBg,
+      assistantTheme: this.state.assistantTheme,
       toggleAssistant: () => this.setState(s => ({ assistantOpen: !s.assistantOpen })),
       closeAssistant: () => this.setState({ assistantOpen: false }),
       scrollTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
