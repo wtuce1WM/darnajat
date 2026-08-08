@@ -269,6 +269,10 @@
     </footer>
   </section>
 
+  <div style="width:100%;background:#EFE6D8;">
+    <iframe id="owm-weather-footer" src="https://oneworldmorocco.com/embed/weather?city=Marrakech&amp;lang=fr&amp;layout=footer&amp;days=3&amp;bg=EFE6D8" style="width:100%;display:block;height:96px;border:0;border-radius:0px;background:transparent" title="Météo — Marrakech" loading="lazy"></iframe>
+  </div>
+
   <footer style="padding:40px clamp(20px,5vw,64px);background:#2B2420;color:rgba(247,241,232,0.85);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;">
     <div style="font-family:'Cormorant Garamond',serif;font-size:18px;">Riad Dar Najat — Marrakech</div>
     <div style="font-size:12.5px;opacity:0.7;">© 2026 Riad Dar Najat. Tous droits réservés.</div>
@@ -276,5 +280,20 @@
 
 </div>
 </x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._weatherHeightHandler = (e) => {
+      if (!e.data || e.data.type !== 'owm-weather-height') return;
+      const f = document.getElementById('owm-weather-footer');
+      if (f) f.style.height = Math.ceil(e.data.height) + 'px';
+    };
+    window.addEventListener('message', this._weatherHeightHandler);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('message', this._weatherHeightHandler);
+  }
+}
+</script>
 </body>
 </html>

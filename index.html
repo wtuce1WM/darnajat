@@ -222,7 +222,7 @@
         </sc-for>
       </div>
       <div style="width:100%;max-width:460px;margin:0 auto">
-        <iframe id="owm-reviews" src="https://oneworldmorocco.com/embed/reviews/riad-dar-najat?platform=all&amp;lang=fr&amp;ratio=vertical&amp;size=sm&amp;bg=transparent&amp;card=EFE6D8" style="width:100%;display:block;height:560px;border:0;border-radius:20px;background:transparent" title="Avis clients — Riad Dar Najat" loading="lazy"></iframe>
+        <iframe id="owm-reviews" src="https://oneworldmorocco.com/embed/reviews/riad-dar-najat?platform=all&amp;lang=fr&amp;ratio=vertical&amp;size=sm&amp;bg=transparent&amp;card=F7F1E8" style="width:100%;display:block;height:560px;border:0;border-radius:20px;background:transparent" title="Avis clients — Riad Dar Najat" loading="lazy"</iframe>
       </div>
     </section>
   </sc-if>
@@ -301,7 +301,7 @@
   <!-- AI ASSISTANT WIDGET -->
   <button onClick="{{ toggleAssistant }}" aria-label="Ouvrir l'assistant IA" style="position:fixed;top:25%;right:max(16px, env(safe-area-inset-right));transform:translateY(-50%) rotate(-90deg);transform-origin:right center;background:#C04F17;color:#fff;padding:14px 22px;border:none;border-radius:8px 8px 0 0;font-family:Montserrat,sans-serif;font-weight:600;font-size:13px;letter-spacing:0.05em;white-space:nowrap;cursor:pointer;z-index:999998;box-shadow:0 4px 20px rgba(0,0,0,0.3);">Assistant 1WM</button>
   <div role="dialog" aria-hidden="{{ assistantAriaHidden }}" style="position:fixed;top:0;right:{{ assistantRight }};width:{{ assistantWidth }};height:100vh;background:{{ assistantBg }};color-scheme:{{ assistantTheme }};z-index:999999;transition:right .35s ease;box-shadow:-8px 0 40px rgba(0,0,0,.25);display:flex;flex-direction:column;">
-    <iframe src="https://oneworldmorocco.com/embed/ask/riad-dar-najat?theme=dark&amp;lang=fr&amp;bg=transparent&amp;card=2B2420&amp;panel=1&amp;name=Zitoun%20IA" title="Assistant IA — Riad Dar Najat" allow="clipboard-write; geolocation" loading="lazy" style="flex:1;width:100%;border:none;background:{{ assistantBg }};"></iframe>
+    <iframe src="https://oneworldmorocco.com/embed/ask/riad-dar-najat?theme=light&amp;lang=fr&amp;bg=transparent&amp;card=F7F1E8&amp;panel=1&amp;name=Zitoun%20IA" title="Assistant IA — Riad Dar Najat" allow="clipboard-write; geolocation" loading="lazy" style="flex:1;width:100%;border:none;background:{{ assistantBg }};"></iframe>
   </div>
 
   <!-- FOOTER -->
@@ -506,7 +506,7 @@ const HERO_IMAGES_MOBILE = [
 ];
 
 class Component extends DCLogic {
-  state = { lang: 'fr', activeHero: 0, assistantOpen: false, assistantBg: '#2B2420', assistantTheme: 'dark', isMobile: window.innerWidth <= 768, mobileNavOpen: false, scrolled: false };
+  state = { lang: 'fr', activeHero: 0, assistantOpen: false, assistantBg: '#F7F1E8', assistantTheme: 'light', isMobile: window.innerWidth <= 768, mobileNavOpen: false, scrolled: false };
 
   _injectWidgetScript(containerId, code) {
     const container = document.getElementById(containerId);
