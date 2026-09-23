@@ -107,7 +107,7 @@
       <button onClick="{{ aboutPrev }}" aria-label="Image précédente" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:44px;height:44px;border:none;border-radius:50%;background:rgba(247,241,232,0.9);color:#2B2420;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.2);z-index:2;">‹</button>
       <button onClick="{{ aboutNext }}" aria-label="Image suivante" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:44px;height:44px;border:none;border-radius:50%;background:rgba(247,241,232,0.9);color:#2B2420;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.2);z-index:2;">›</button>
       <div style="position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:8px;z-index:2;">
-        <sc-for list="{{ aboutSlides }}" as="s" hint-placeholder-count="6">
+        <sc-for list="{{ aboutSlides }}" as="s" hint-placeholder-count="13">
           <button onClick="{{ s.go }}" aria-label="{{ s.label }}" style="width:{{ s.dotW }};height:8px;padding:0;border:none;border-radius:4px;background:{{ s.dotBg }};cursor:pointer;transition:width .3s ease;"></button>
         </sc-for>
       </div>
@@ -502,12 +502,19 @@ const HERO_IMAGES = [
 ];
 
 const ABOUT_IMAGES = [
-  { id: 'about-photo', placeholder: 'Photo du patio ou de la piscine rooftop' },
+  { id: 'about-the-piscine', src: 'images/about-DSC08594.jpg', placeholder: 'Thé au bord de la piscine' },
   { id: 'about-porte', src: 'images/about-DSC08828.jpg', placeholder: 'Porte sculptée' },
   { id: 'about-piscine-nuit', src: 'images/about-DSC08980.jpg', placeholder: 'Piscine de nuit' },
   { id: 'about-the', src: 'images/about-DSC08419.jpg', placeholder: 'Service à thé' },
   { id: 'about-piscine', src: 'images/about-DSC08564.jpg', placeholder: 'Piscine' },
   { id: 'about-terrasse', src: 'images/about-DSC08612.jpg', placeholder: 'Déjeuner en terrasse' },
+  { id: 'about-patio', src: 'images/about-DSC08447.jpg', placeholder: 'Patio' },
+  { id: 'about-facades', src: 'images/about-DSC08454.jpg', placeholder: 'Façades intérieures' },
+  { id: 'about-tableau-1', src: 'images/about-DSC08484.jpg', placeholder: 'Tableau' },
+  { id: 'about-escalier', src: 'images/about-DSC08652.jpg', placeholder: 'Escalier vers le rooftop' },
+  { id: 'about-tableau-2', src: 'images/about-DSC08788.jpg', placeholder: 'Tableau' },
+  { id: 'about-balcon', src: 'images/about-DSC08833.jpg', placeholder: 'Balcon' },
+  { id: 'about-porte-entree', src: 'images/about-DSC08952.jpg', placeholder: "Porte d'entrée" },
 ];
 
 const HERO_IMAGES_MOBILE = [
