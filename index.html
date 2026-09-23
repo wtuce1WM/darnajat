@@ -73,8 +73,7 @@
     <div style="position:absolute;inset:0;">
       <sc-for list="{{ heroImages }}" as="img" hint-placeholder-count="4">
         <div style="position:absolute;inset:0;z-index:{{ img.z }};animation:{{ img.anim }};visibility:{{ img.vis }};">
-          <image-slot id="{{ img.id }}" shape="rect" placeholder="{{ img.placeholder }}"></image-slot>
-          <div style="position:absolute;top:16px;left:16px;z-index:10;background:rgba(0,0,0,0.6);color:#fff;font-size:24px;font-weight:700;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;">{{ img.num }}</div>
+          <image-slot id="{{ img.id }}" shape="rect" placeholder="{{ img.placeholder }}" src="{{ img.src }}"></image-slot>
         </div>
       </sc-for>
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,15,10,0.25) 0%,rgba(20,15,10,0.7) 100%);pointer-events:none;z-index:3;"></div>
@@ -99,8 +98,19 @@
 
   <!-- ABOUT -->
   <section id="about" data-screen-label="À propos" style="padding:clamp(64px,10vh,120px) clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,6vw,80px);align-items:center;max-width:1280px;margin:0 auto;">
-    <div style="aspect-ratio:4/5;border-radius:4px;overflow:hidden;">
-      <image-slot id="about-photo" shape="rect" placeholder="Photo du patio ou de la piscine rooftop"></image-slot>
+    <div style="position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;background:#EFE6D8;">
+      <sc-for list="{{ aboutSlides }}" as="s" hint-placeholder-count="1">
+        <div style="position:absolute;inset:0;opacity:{{ s.opacity }};pointer-events:{{ s.pe }};transition:opacity .6s ease;">
+          <image-slot id="{{ s.id }}" shape="rect" placeholder="{{ s.placeholder }}" src="{{ s.src }}"></image-slot>
+        </div>
+      </sc-for>
+      <button onClick="{{ aboutPrev }}" aria-label="Image précédente" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:44px;height:44px;border:none;border-radius:50%;background:rgba(247,241,232,0.9);color:#2B2420;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.2);z-index:2;">‹</button>
+      <button onClick="{{ aboutNext }}" aria-label="Image suivante" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:44px;height:44px;border:none;border-radius:50%;background:rgba(247,241,232,0.9);color:#2B2420;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.2);z-index:2;">›</button>
+      <div style="position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:8px;z-index:2;">
+        <sc-for list="{{ aboutSlides }}" as="s" hint-placeholder-count="6">
+          <button onClick="{{ s.go }}" aria-label="{{ s.label }}" style="width:{{ s.dotW }};height:8px;padding:0;border:none;border-radius:4px;background:{{ s.dotBg }};cursor:pointer;transition:width .3s ease;"></button>
+        </sc-for>
+      </div>
     </div>
     <div>
       <div style="font-size:13px;letter-spacing:2.5px;font-weight:600;color:{{ accent }};margin-bottom:16px;">{{ t.about.eyebrow }}</div>
@@ -199,16 +209,8 @@
 
   <!-- REVIEWS -->
   <sc-if value="{{ showReviews }}" hint-placeholder-val="{{ true }}">
-    <section style="padding:clamp(64px,10vh,120px) clamp(20px,5vw,64px);max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(32px,6vw,80px);align-items:center;">
-      <div>
-        <div style="font-size:13px;letter-spacing:2.5px;font-weight:600;color:{{ accent }};margin-bottom:16px;">{{ t.reviews.eyebrow }}</div>
-        <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:8px;">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:600;">{{ t.reviews.score }}</span>
-          <span style="font-size:20px;font-weight:500;">{{ t.reviews.label }}</span>
-        </div>
-        <p style="font-size:15px;color:#7a7166;margin:0;">{{ t.reviews.count }}</p>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:14px;">
+    <section style="padding:clamp(64px,10vh,120px) clamp(20px,5vw,64px);max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
+      <div style="flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:14px;">
         <sc-for list="{{ t.reviews.categories }}" as="cat" hint-placeholder-count="6">
           <div>
             <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px;">
@@ -221,8 +223,8 @@
           </div>
         </sc-for>
       </div>
-      <div style="width:100%;max-width:460px;margin:0 auto">
-        <iframe id="owm-reviews" src="https://oneworldmorocco.com/embed/reviews/riad-dar-najat?platform=all&amp;lang=fr&amp;ratio=vertical&amp;size=sm&amp;bg=transparent&amp;card=F7F1E8" style="width:100%;display:block;height:560px;border:0;border-radius:20px;background:transparent" title="Avis clients — Riad Dar Najat" loading="lazy"></iframe>
+      <div style="flex:3 1 480px;min-width:0;">
+        <iframe id="owm-reviews" src="https://oneworldmorocco.com/embed/reviews/riad-dar-najat?platform=all&amp;lang=fr&amp;ratio=vertical&amp;size=sm&amp;fit=w" style="width:100%;display:block;height:560px;border:0;border-radius:20px" title="Avis clients — Riad Dar Najat" loading="lazy"></iframe>
       </div>
     </section>
   </sc-if>
@@ -493,10 +495,19 @@ const CONTENT = {
 };
 
 const HERO_IMAGES = [
-  { id: 'hero-bg-1', placeholder: 'Photo hero 1 — façade ou entrée du riad' },
+  { id: 'hero-bg-1-nuit', placeholder: 'Photo hero 1 — riad de nuit', src: 'images/hero-riad-nuit.jpg' },
   { id: 'hero-bg-2', placeholder: 'Photo hero 2 — patio' },
   { id: 'hero-bg-3', placeholder: 'Photo hero 3 — piscine chauffée rooftop' },
   { id: 'hero-bg-4', placeholder: 'Photo hero 4 — terrasse au coucher du soleil' },
+];
+
+const ABOUT_IMAGES = [
+  { id: 'about-photo', placeholder: 'Photo du patio ou de la piscine rooftop' },
+  { id: 'about-porte', src: 'images/about-DSC08828.jpg', placeholder: 'Porte sculptée' },
+  { id: 'about-piscine-nuit', src: 'images/about-DSC08980.jpg', placeholder: 'Piscine de nuit' },
+  { id: 'about-the', src: 'images/about-DSC08419.jpg', placeholder: 'Service à thé' },
+  { id: 'about-piscine', src: 'images/about-DSC08564.jpg', placeholder: 'Piscine' },
+  { id: 'about-terrasse', src: 'images/about-DSC08612.jpg', placeholder: 'Déjeuner en terrasse' },
 ];
 
 const HERO_IMAGES_MOBILE = [
@@ -562,9 +573,7 @@ class Component extends DCLogic {
       if (f) f.style.height = Math.ceil(e.data.height) + 'px';
     };
     window.addEventListener('message', this._weatherHeightHandler);
-    this._heroTimer = setInterval(() => {
-      this.setState(s => ({ activeHero: (s.activeHero + 1) % HERO_IMAGES.length }));
-    }, 6000);
+
     this._escHandler = (e) => { if (e.key === 'Escape') this.setState({ assistantOpen: false }); };
     document.addEventListener('keydown', this._escHandler);
     this._assistantCloseHandler = (e) => {
@@ -611,14 +620,29 @@ class Component extends DCLogic {
     const scrolled = this.state.scrolled;
     const accent = this.props.accent || '#C1602A';
     const active = this.state.activeHero;
-    const heroImages = (this.state.isMobile ? HERO_IMAGES_MOBILE : HERO_IMAGES).map((img, i) => ({
+    const heroImages = (this.state.isMobile ? HERO_IMAGES_MOBILE : HERO_IMAGES).slice(0, 1).map((img, i) => ({
       ...img,
       num: i + 1,
       z: i === active ? 2 : 1,
       anim: i === active ? 'heroWipe 1.4s ease-out forwards' : 'none',
       vis: i === active ? 'visible' : 'hidden',
     }));
+    const aboutIdx = this.state.aboutIdx || 0;
+    const nA = ABOUT_IMAGES.length;
+    const aboutSlides = ABOUT_IMAGES.map((img, i) => ({
+      ...img,
+      src: img.src || '',
+      opacity: i === aboutIdx ? 1 : 0,
+      pe: i === aboutIdx ? 'auto' : 'none',
+      dotW: i === aboutIdx ? '22px' : '8px',
+      dotBg: i === aboutIdx ? '#F7F1E8' : 'rgba(247,241,232,0.55)',
+      label: 'Image ' + (i + 1),
+      go: () => this.setState({ aboutIdx: i }),
+    }));
     return {
+      aboutSlides,
+      aboutPrev: () => this.setState({ aboutIdx: (aboutIdx - 1 + nA) % nA }),
+      aboutNext: () => this.setState({ aboutIdx: (aboutIdx + 1) % nA }),
       heroImages,
       t: CONTENT[lang],
       lang,
